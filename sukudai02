@@ -1,0 +1,15 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+from sklearn.linear_model import LinearRegression
+
+df = pd.read_csv('california_housing_cleansing.csv')
+
+features = ['所得', '築年数', '地域人口', '経度', '緯度', '部屋数/人', '寝室数/人']
+target = '住宅価格'
+
+sns.pairplot(df[features + [target]])
+
+
+
+plt.show()
