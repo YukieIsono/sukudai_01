@@ -1,0 +1,15 @@
+import folium
+import pandas as pd
+
+df = pd.read_csv('california_housing_cleansing.csv')
+
+top_populated_houses = df.nlargest(100, '地域人口')
+low_populated_houses = df.nsmallest(100, '地域人口')
+
+m = folium.Map(location=[df['緯度'].mean(), df['経度'].mean()],zoom_start=12)
+
+for index, row in top_populated_houses.iterrows():folium.Marker([row['緯度'], row['経度']], popup=f"地域人口: {row['地域人口']}").add_to(m)
+for index, row in low_populated_houses.iterrows():folium.Marker([row['緯度'], row['経度']], popup=f"地域人口: {row['地域人口']}").add_to(m)
+
+m.save('map.html')
+m
